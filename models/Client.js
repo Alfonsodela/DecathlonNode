@@ -8,6 +8,7 @@ const clientSchema = new Schema(
         apellido: {type: String, required: true},
         email: {type: String, required: true},
         telefono: {type: Number, required: true},
+        edad: {type: Number}
     }, {
         timestamps: true,
     });
