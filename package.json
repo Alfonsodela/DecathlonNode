@@ -25,7 +25,11 @@
     "nodemon": "^2.0.15"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "express": "^4.17.2",
-    "mongoose": "^6.2.0"
+    "express-session": "^1.17.2",
+    "mongoose": "^6.2.0",
+    "passport": "^0.5.2",
+    "passport-local": "^1.0.0"
   }
 }
