@@ -1,12 +1,18 @@
 const express = require("express");
 const clientsRouter = require('./router/clients.router');
+const targetsRouter = require('./router/targets.router');
 const db = require("./db");
 
 const PORT = 3000;
 
 const server = express();
 
+// Añadimos los middlewares para poder leer los body
+server.use(express.json());
+server.use(express.urlencoded({ extended: false }));
+
 server.use('/clients', clientsRouter);
+server.use('/targets', targetsRouter);
 
 server.get("/", (req, res) => {
   res.status(200).send("Server is up & running");
