@@ -52,7 +52,7 @@ targetsRouter.post('/', (req, res, next) => {
   });
 });
 
-targetsRouter.put('/:id', (req, res, next) => {
+targetsRouter.put('/:id/clients', (req, res, next) => {
   const id = req.params.id;
   return Target.findByIdAndUpdate(id, { $set: req.body }, { new: true })
     .then(targetUpdated => {
