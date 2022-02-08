@@ -1,6 +1,8 @@
 const express = require("express");
 const passport = require('passport');
+const session = require('express-session');
 require('./authentication/passport');
+
 
 
 const clientsRouter = require('./router/clients.router');
@@ -15,6 +17,14 @@ const server = express();
 // Añadimos los middlewares para poder leer los body
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
+server.use(session({
+  secret: 'secreto-desarrollo',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 3600000,
+  },
+}));
 
 server.use(passport.initialize());
 server.use(passport.session());

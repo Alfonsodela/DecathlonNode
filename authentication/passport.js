@@ -11,7 +11,7 @@ const saltRounds = 5;
 passport.use('register', new LocalStrategy(
     {
         usernameField: 'email',
-        passwordField: 'password',
+        passwordField: 'contrasena',
         passReqToCallback: true,
     },
     async(req, username, password, done) => {
@@ -23,15 +23,15 @@ passport.use('register', new LocalStrategy(
                 return done(error);
             }
 
-            const pwdHash =await bcrypt.hash(password, saltRounds);
+            const pwdHash = await bcrypt.hash(password, saltRounds);
 
             const newUser = new User({
                 email: username,
-                password: pwdHash,
+                contrasena: pwdHash,
             });
             const saveUser = await newUser.save();
 
-            saveUser.passport = undefined;
+            saveUser.contrasena = undefined;
 
             done(null, saveUser);
         } catch(error) {
@@ -44,7 +44,7 @@ passport.use('login',
     new LocalStrategy(
         {
             usernameField: 'email', // req.body.correo
-            passwordField: 'password', // req.body.contrasena
+            passwordField: 'contrasena', // req.body.contrasena
             passReqToCallback: true,
         },
         async (req, username, password, done) => {
@@ -59,7 +59,7 @@ passport.use('login',
                 }
 
                 // 3. Comparar contraseñas
-                const isValidPassword = await bcrypt.compare(password, user.password);
+                const isValidPassword = await bcrypt.compare(password, user.contrasena);
 
                 // 4. Si la contraseña no es valida, fallamos
                 if (!isValidPassword) {
@@ -68,7 +68,7 @@ passport.use('login',
                 }
 
                 // 5. Damos por valido el login ya que el correo encaja y la contraseña es valida
-                user.password = undefined;
+                user.contrasena = undefined;
                 return done(null, user);
             } catch(error) {
                 return done(error);
@@ -83,7 +83,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (userId, done) => {
     try {
-        const usuario = await User.findById(userId);
+        const user = await User.findById(userId);
         return done(null, user);
     } catch(error) {
         return done(error);
