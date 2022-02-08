@@ -1,9 +1,10 @@
 const express = require("express");
 const passport = require('passport');
+const session = require('express-session');
 require('./authentication/passport');
 
 
-
+const auth = require('./middlewares/auth.middleware');
 const clientsRouter = require('./router/clients.router');
 const targetsRouter = require('./router/targets.router');
 const usersRouter = require("./router/users.router");
@@ -17,10 +18,20 @@ const server = express();
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 
+server.use(session({
+  secret: 'secreto-desarrollo',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+      maxAge: 3600000, // 3600000ms === 1h de validez
+  },
+  
+}));
 
 server.use(passport.initialize());
+server.use(passport.session());
 
-server.use('/clients', clientsRouter);
+server.use('/clients', [auth.isAuthenticated], clientsRouter);
 server.use('/targets', targetsRouter);
 server.use('/users', usersRouter);
 

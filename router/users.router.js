@@ -17,8 +17,25 @@ usersRouter.post("/register", (req, res, next) => {
       res.status(201).json(user);
     });
   };
-  passport.authenticate("registro", callback)(req);
+  passport.authenticate("register", callback)(req);
+});
+
+usersRouter.post("/login", (req, res, next) => {
+  const callback = (error, user) => {
+    if (error) {
+      return next(error);
+    }
+
+    req.logIn(user, (errorLogin) => {
+      // Si hay un error logeando al usuario, resolvemos el controlador
+      if (errorLogin) {
+        return next(errorLogin);
+      }
+      // Si no hay error, devolvemos al usuario logueado
+      return res.status(200).json(user);
+    });
+  };
+  passport.authenticate("login", callback)(req);
 });
 
 module.exports = usersRouter;
-
