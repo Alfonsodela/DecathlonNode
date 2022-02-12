@@ -10,7 +10,7 @@ const clientsRouter = require('./router/clients.router');
 const targetsRouter = require('./router/targets.router');
 const usersRouter = require("./router/users.router");
 const db = require("./db");
-const logger = require('./middlewares/logger.middleware');
+
 
 const PORT = 3000;
 
@@ -33,9 +33,9 @@ server.use(session({
 server.use(passport.initialize());
 server.use(passport.session());
 
-server.use('/clients', [logger, auth.isAuthenticated], clientsRouter);
-server.use('/targets', [logger], targetsRouter);
-server.use('/users', [logger], usersRouter);
+server.use('/clients', [auth.isAuthenticated], clientsRouter);
+server.use('/targets', targetsRouter);
+server.use('/users', usersRouter);
 
 server.get("/", (req, res) => {
   res.status(200).send("Server is up & running");

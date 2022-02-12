@@ -1,5 +1,7 @@
 const express = require("express");
 const Target = require("../models/Target");
+const auth = require('../middlewares/auth.middleware');
+
 
 const targetsRouter = express.Router();
 
@@ -34,7 +36,7 @@ targetsRouter.get("/:id", (req, res, next) => {
     });
 });
 
-targetsRouter.post('/', (req, res, next) => {
+targetsRouter.post('/', [auth.isAuthenticated], (req, res, next) => {
   const newTarget = new Target({
     nivel: req.body.nombre,
     fidelidad: req.body.fidelidad,
