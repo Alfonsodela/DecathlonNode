@@ -38,4 +38,17 @@ usersRouter.post("/login", (req, res, next) => {
   passport.authenticate("login", callback)(req);
 });
 
+usersRouter.post('/logout', (req, res, next) => {
+  if (!req.user) {
+    return res.sendStatus(304);
+  }
+
+  req.logOut();
+
+  return req.session.destroy(() => {
+    res.clearCookie('connect.sid');
+    return res.status(200).json('Logout session')
+  });
+});
+
 module.exports = usersRouter;

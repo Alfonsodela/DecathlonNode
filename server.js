@@ -1,6 +1,7 @@
 const express = require("express");
 const passport = require('passport');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 require('./authentication/passport');
 
 
@@ -9,6 +10,7 @@ const clientsRouter = require('./router/clients.router');
 const targetsRouter = require('./router/targets.router');
 const usersRouter = require("./router/users.router");
 const db = require("./db");
+const logger = require('./middlewares/logger.middleware');
 
 const PORT = 3000;
 
@@ -25,15 +27,15 @@ server.use(session({
   cookie: {
       maxAge: 3600000, // 3600000ms === 1h de validez
   },
-  
+  store: MongoStore.create({ mongoUrl: db.DB_URL })
 }));
 
 server.use(passport.initialize());
 server.use(passport.session());
 
-server.use('/clients', [auth.isAuthenticated], clientsRouter);
-server.use('/targets', targetsRouter);
-server.use('/users', usersRouter);
+server.use('/clients', [logger, auth.isAuthenticated], clientsRouter);
+server.use('/targets', [logger], targetsRouter);
+server.use('/users', [logger], usersRouter);
 
 server.get("/", (req, res) => {
   res.status(200).send("Server is up & running");

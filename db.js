@@ -7,4 +7,4 @@ const connectDB = () => mongoose.connect(DB_URL, {
     useUnifiedTopology: true,
 });
 
-module.exports = { connectDB };
+module.exports = { connectDB, DB_URL };
