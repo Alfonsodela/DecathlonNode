@@ -1,11 +1,14 @@
+// Importaciones
 const express = require("express");
+const logger = require("morgan");
 const passport = require('passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 require('./authentication/passport');
 
-
+// Importamos las rutas
 const auth = require('./middlewares/auth.middleware');
+const bicyclesRouter = require('./router/bicycles.router');
 const clientsRouter = require('./router/clients.router');
 const targetsRouter = require('./router/targets.router');
 const usersRouter = require("./router/users.router");
@@ -33,6 +36,7 @@ server.use(session({
 server.use(passport.initialize());
 server.use(passport.session());
 
+server.use('/bicycles', bicyclesRouter);
 server.use('/clients', [auth.isAuthenticated], clientsRouter);
 server.use('/targets', targetsRouter);
 server.use('/users', usersRouter);

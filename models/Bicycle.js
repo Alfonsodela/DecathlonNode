@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const bikeSchema = new Schema(
+const bicycleSchema = new Schema(
     {
         nombre: {type: String, required: true},
         tipo: {type: String, required: true},
@@ -11,6 +11,6 @@ const bikeSchema = new Schema(
         timestamps: true,
     });
 
-const Bike = mongoose.model('Bike', bikeSchema);
+const Bicycle = mongoose.model('Bicycle', bicycleSchema);
 
-module.exports = Bike;
+module.exports = Bicycle;

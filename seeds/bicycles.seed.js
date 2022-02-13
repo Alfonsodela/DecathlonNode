@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 const db = require("../db");
-const Bike = require("../models/Bike");
+const Bicycle = require("../models/Bicycle");
+const Bike = require("../models/Bicycle");
 
-const bikes = [
+const bicycles = [
   {
     nombre: "Rockrider XC 900",
     tipo: "Rígida",
@@ -55,21 +56,21 @@ const bikes = [
   },
 ];
 
-const bikesDocuments = bikes.map((bike) => new Bike(bike));
+const bicyclesDocuments = bicycles.map((bicycle) => new Bicycle(bicycle));
 
 db.connectDB()
   // Ver si hay bicis y eliminarlos
   .then(async () => {
-    const allBikes = await Bike.find();
-    if (allBikes.length > 0) {
-      await Bike.collection.drop();
+    const allBicycles = await Bicycle.find();
+    if (allBicycles.length > 0) {
+      await Bicycle.collection.drop();
     }
   })
   .catch((err) => console.error(`Error eliminado información de la DB: ${err}`))
-  // Añadir documentos de clientes a la base de datos
+  // Añadir documentos de bicicletas a la base de datos
   .then(async () => {
-    await Bike.insertMany(bikesDocuments);
-    // await Promise.all(cochesDocuments.map((coche) => Coche.insert(coche)));
+    await Bicycle.insertMany(bicyclesDocuments);
+    
   })
   .catch((err) => console.error(`Error creando documentos en DB: ${err}`))
   // Cerrar la conexión
