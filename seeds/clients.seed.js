@@ -37,6 +37,7 @@ const clients = [
 
 const clientsDocuments = clients.map((client) => new Client(client));
 
+// Conectaremos con DB y desconectaremos tras insertar los documentos
 db.connectDB()
   // Ver si hay clientes y eliminarlos
   .then(async () => {
@@ -49,7 +50,7 @@ db.connectDB()
   // Añadir documentos de clientes a la base de datos
   .then(async () => {
     await Client.insertMany(clientsDocuments);
-    // await Promise.all(cochesDocuments.map((coche) => Coche.insert(coche)));
+    
   })
   .catch((err) => console.error(`Error creando documentos en DB: ${err}`))
   // Cerrar la conexión

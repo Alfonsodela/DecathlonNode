@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
+// Creación del objeto del esquema
 const userSchema = new Schema(
     {
         email: { type: String, required: true },
@@ -12,6 +13,7 @@ const userSchema = new Schema(
     }
 );
 
-const User = mongoose.model('User', userSchema);
 
+// Exportamos el modelo
+const User = mongoose.model('User', userSchema);
 module.exports = User;

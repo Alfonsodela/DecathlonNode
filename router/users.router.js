@@ -5,6 +5,9 @@ const auth = require('../middlewares/auth.middleware');
 
 const usersRouter = express.Router();
 
+// Configurando routing y controllers
+
+// Registro
 usersRouter.post("/register", (req, res, next) => {
   const callback = (error, user) => {
     if (error) {
@@ -12,7 +15,6 @@ usersRouter.post("/register", (req, res, next) => {
     }
 
     req.logIn(user, (errorLogin) => {
-      // Si hay un error logeando
       if (errorLogin) {
         return next(errorLogin);
       }
@@ -22,6 +24,7 @@ usersRouter.post("/register", (req, res, next) => {
   passport.authenticate("register", callback)(req);
 });
 
+//Login
 usersRouter.post("/login", (req, res, next) => {
   const callback = (error, user) => {
     if (error) {
@@ -29,17 +32,16 @@ usersRouter.post("/login", (req, res, next) => {
     }
 
     req.logIn(user, (errorLogin) => {
-      // Si hay un error logeando al usuario, resolvemos el controlador
       if (errorLogin) {
         return next(errorLogin);
       }
-      // Si no hay error, devolvemos al usuario logueado
       return res.status(200).json(user);
     });
   };
   passport.authenticate("login", callback)(req);
 });
 
+// Logout
 usersRouter.post('/logout', (req, res, next) => {
   if (!req.user) {
     return res.sendStatus(304);

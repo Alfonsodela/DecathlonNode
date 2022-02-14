@@ -10,7 +10,7 @@ require('./authentication/passport');
 const auth = require('./middlewares/auth.middleware');
 const bicyclesRouter = require('./router/bicycles.router');
 const clientsRouter = require('./router/clients.router');
-const targetsRouter = require('./router/targets.router');
+const ordersRouter = require('./router/orders.router');
 const usersRouter = require("./router/users.router");
 const db = require("./db");
 
@@ -19,16 +19,18 @@ const PORT = 3000;
 
 const server = express();
 
-// Añadimos los middlewares para poder leer los body
+// Middlewares
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
+
+server.use(logger("dev"));
 
 server.use(session({
   secret: 'secreto-desarrollo',
   resave: false,
   saveUninitialized: false,
   cookie: {
-      maxAge: 3600000, // 3600000ms === 1h de validez
+      maxAge: 3600000, 
   },
   store: MongoStore.create({ mongoUrl: db.DB_URL })
 }));
@@ -36,15 +38,17 @@ server.use(session({
 server.use(passport.initialize());
 server.use(passport.session());
 
+// Rutas
 server.use('/bicycles', bicyclesRouter);
 server.use('/clients', [auth.isAuthenticated], clientsRouter);
-server.use('/targets', targetsRouter);
+server.use('/orders', [auth.isAuthenticated], ordersRouter);
 server.use('/users', usersRouter);
 
 server.get("/", (req, res) => {
   res.status(200).send("Server is up & running");
 });
 
+// Control de errores
 server.use("*", (req, res, next) => {
   const error = new Error("Ruta no encontrada");
   error.status = 404;
@@ -57,6 +61,7 @@ server.use((err, _req, res, _next) => {
     .json(err.message || "Error inesperado en servidor");
 });
 
+// Levantando el servidor
 db.connectDB().then(() => {
     console.log('Conectado a base de datos Mongo');
   server.listen(PORT, () => {

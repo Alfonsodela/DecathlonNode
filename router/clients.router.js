@@ -12,7 +12,7 @@ clientsRouter.get("/", (req, res, next) => {
       })
       .catch((err) => {
         const error = new Error(err);
-        error.status = 500;s
+        error.status = 500;
         return next(error);
       });
   });
@@ -53,9 +53,9 @@ clientsRouter.post('/', (req, res, next) => {
     });
 });
 
-clientsRouter.put('/:id', (req, res, next) => {
+clientsRouter.put('/:id/orders', (req, res, next) => {
   const id = req.params.id;
-  return Client.findByIdAndUpdate(id, {$set: req.body}, {new: true})
+  return Client.findByIdAndUpdate(id, {$push: {orders: req.body.orderId}}, {new: true})
     .then(clientUpdated => {
       res.status(200).json(clientUpdated);
     })

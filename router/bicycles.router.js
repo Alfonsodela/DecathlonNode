@@ -3,6 +3,7 @@ const Bicycle = require("../models/Bicycle");
 
 const bicyclesRouter = express.Router();
 
+// Configurando routing y controllers
 bicyclesRouter.get("/", (req, res, next) => {
   return Bicycle.find()
   .then((bicycle) => {
