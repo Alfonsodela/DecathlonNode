@@ -1,6 +1,5 @@
 // Importaciones
 const express = require("express");
-const logger = require("morgan");
 const passport = require('passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
@@ -23,7 +22,6 @@ const server = express();
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 
-server.use(logger("dev"));
 
 server.use(session({
   secret: 'secreto-desarrollo',

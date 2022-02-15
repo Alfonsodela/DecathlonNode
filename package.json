@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/Alfonsodela/DecathlonNode#readme",
   "devDependencies": {
-    "morgan": "^1.10.0",
     "nodemon": "^2.0.15"
   },
   "dependencies": {
