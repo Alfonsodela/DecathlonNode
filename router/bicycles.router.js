@@ -6,6 +6,8 @@ const bicyclesRouter = express.Router();
 // Configurando routing y controllers
 bicyclesRouter.get("/", (req, res, next) => {
   let filtro = {};
+
+  // Introduciendo filtros
   if (req.query.tipo) {
     filtro = { ...filtro, tipo: req.query.tipo };
   }
@@ -14,9 +16,9 @@ bicyclesRouter.get("/", (req, res, next) => {
   if (!isNaN(menoresA) && !isNaN(mayoresA)) {
     filtro = { ...filtro, precio: { $lt: menoresA, $gte: mayoresA } };
   } else if (!isNaN(menoresA)) {
-    filtro = { ...filtro, precio: { $lt: menoresA }}
+    filtro = { ...filtro, precio: { $lt: menoresA } };
   } else if (!isNaN(mayoresA)) {
-    filtro = { ...filtro, precio: { $gte: mayoresA }};
+    filtro = { ...filtro, precio: { $gte: mayoresA } };
   }
 
   return Bicycle.find(filtro)
