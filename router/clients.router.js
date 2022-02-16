@@ -4,6 +4,7 @@ const auth = require('../middlewares/auth.middleware');
 
 const clientsRouter = express.Router();
 
+// Configurando routing y controllers
 clientsRouter.get("/", (req, res, next) => {
     //let filter = {};
     return Client.find()
@@ -78,7 +79,5 @@ clientsRouter.delete('/:id', (req, res, next) => {
     return next(error);
    })
 })
-
-
 
 module.exports = clientsRouter;

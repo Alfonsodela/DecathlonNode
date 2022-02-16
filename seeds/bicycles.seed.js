@@ -58,6 +58,7 @@ const bicycles = [
 
 const bicyclesDocuments = bicycles.map((bicycle) => new Bicycle(bicycle));
 
+// Conectaremos con DB y desconectaremos tras insertar los documentos
 db.connectDB()
   // Ver si hay bicis y eliminarlos
   .then(async () => {

@@ -37,7 +37,7 @@ passport.use("register",
         const newUser = new User({
           email: email,
           password: pwdHash,
-          // nombre: req.body.nombre // passReqToCallback = false, no podemos acceder aq
+        
         });
         const savedUser  = await newUser.save();
 
