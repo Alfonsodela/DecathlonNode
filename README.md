@@ -11,3 +11,5 @@ El objetivo de la API es crear listados de pedidos en los que combinamos el esta
   . Construcción del CRUD de cada colección. Routing y controllers
 	
   . Autenticación con Passport y cifrado de contraseñas con Bcrypt. Middlewares
+  
+  . Deploys con Heroku: https://decathlon-apps.herokuapp.com/bicycles
