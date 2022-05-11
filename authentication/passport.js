@@ -26,10 +26,6 @@ passport.use("register",
           return done(error);
         }
 
-        // 2.1 Validar formato contraseña
-        // [a-z0-9]
-        // if (!validation...)
-
         // 3. Encriptar la contraseña
         const pwdHash = await bcrypt.hash(password, saltRounds);
 

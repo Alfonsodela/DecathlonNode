@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const db = require("../db");
 const Bicycle = require("../models/Bicycle");
-const Bike = require("../models/Bicycle");
 
 const bicycles = [
   {
