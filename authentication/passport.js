@@ -101,6 +101,3 @@ passport.use("register",
           return done(error);
       }
   });
-  
-
-  
