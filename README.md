@@ -4,7 +4,7 @@ El objetivo de la API es crear listados de pedidos en los que combinamos el esta
 
   . Levantamos el servidor con Express
 
-  . Para conectar con nuestra base de datos MongoDB Atlas usaremos la librería Mongoose
+  . Para conectar con nuestra base de datos MongoDB Atlas usaremos la librería Mongoose.
 	
   . Definición de modelos y creación de semillas de cada colección
 	
